@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =6
+let g:netrw_dirhist_6='/home/javier/Documents/code/ate_repo/postform/postform_persist'
+let g:netrw_dirhist_5='/home/javier/Documents/code/telegram'
+let g:netrw_dirhist_4='/home/javier/Documents/code/telegram/src'
+let g:netrw_dirhist_3='/home/javier/Documents/code/telegram'
+let g:netrw_dirhist_2='/home/javier'
+let g:netrw_dirhist_1='/home/javier/Documents/code/ate_repo'
