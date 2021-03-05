@@ -76,6 +76,9 @@ autocmd BufRead,BufNewFile *.cpp,*.c,*.h :set expandtab
 autocmd BufRead,BufNewFile *.cpp,*.c,*.h :set tabstop=2
 autocmd BufRead,BufNewFile *.cpp,*.c,*.h :set shiftwidth=2
 
+" Use a column width of 72 for the commit messages
+autocmd BufRead,BufNewFile COMMIT_EDITMSG :set colorcolumn=72
+
 autocmd BufReadPost *.rs setlocal filetype=rust
 
 function! StripTrailingWhitespaces()
