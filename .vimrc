@@ -89,6 +89,16 @@ function! StripTrailingWhitespaces()
 endfun
 
 autocmd BufWritePre *.h,*.c,*.cpp,*.java,*.rust,*.py :call StripTrailingWhitespaces()
+
+function FormatBuffer()
+  if &modified && !empty(findfile('.clang-format', expand('%:p:h') . ';'))
+    let cursor_pos = getpos('.')
+    :%!clang-format
+    call setpos('.', cursor_pos)
+  endif
+endfunction
+
+autocmd BufWritePre *.h,*.hpp,*.c,*.cpp :call FormatBuffer()
 augroup END
 
 " Configures lightline status bar to show up
