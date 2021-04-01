@@ -1,5 +1,5 @@
 " Fish doesn't play all that well with others
-set shell=/bin/fish
+set shell=/bin/bash
 let mapleader = "\<Space>"
 
 set nocompatible              " be iMproved, required
@@ -13,7 +13,8 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'ycm-core/YouCompleteMe' " Autocompletion, syntax highlighting, error detection, etc
+Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+Plugin 'vim-syntastic/syntastic'
 Plugin 'rust-lang/rust.vim' " Rust lang plugin
 Plugin 'itchyny/lightline.vim' " Status bar
 Plugin 'machakann/vim-highlightedyank' " Highlights the text that is yanked
@@ -23,7 +24,7 @@ Plugin 'airblade/vim-rooter'
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'junegunn/fzf.vim'
 
-Plugin 'gruvbox-comunity/gruvbox' " Color scheme
+Plugin 'morhetz/gruvbox' " Color scheme
 Plugin 'mbbill/undotree' " Undo tree plugin
 
 " All of your Plugins must be added before the following line
@@ -41,31 +42,11 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 "
+
 set relativenumber
 set number
 set wildmenu
 set wildmode=full
-
-highlight YcmErrorSection ctermbg=red ctermfg=white
-highlight YcmWarningSection ctermbg=yellow ctermfg=black
-
-nnoremap gi :YcmCompleter GoToInclude<CR>
-nnoremap gd :YcmCompleter GoToDefinition<CR>
-nnoremap gr :YcmCompleter GoToReferences<CR>
-nnoremap fi :YcmCompleter FixIt<CR>
-nnoremap rr :YcmCompleter RefactorRename 
-nnoremap doc :YcmCompleter GetDoc<CR> 
-
-let g:ycm_clangd_args = [ '--cross-file-rename' ]
-let g:ycm_language_server =
-\ [
-\   {
-\     'name': 'rust',
-\     'cmdline': ['rust-analyzer'],
-\     'filetypes': ['rust'],
-\     'project_root_files': ['Cargo.toml']
-\   }
-\ ]
 
 let g:rustfmt_autosave = 1
 
@@ -78,6 +59,10 @@ autocmd BufRead,BufNewFile *.cpp,*.c,*.h :set shiftwidth=2
 
 " Use a column width of 72 for the commit messages
 autocmd BufRead,BufNewFile COMMIT_EDITMSG :set colorcolumn=72
+
+autocmd BufRead,BufNewFile CMakeLists.txt,*.cmake :set expandtab
+autocmd BufRead,BufNewFile CMakeLists.txt,*.cmake :set tabstop=2
+autocmd BufRead,BufNewFile CMakeLists.txt,*.cmake :set shiftwidth=2
 
 autocmd BufReadPost *.rs setlocal filetype=rust
 
@@ -141,6 +126,7 @@ set colorcolumn=80,100
 
 " Normal terminal mode with Esc
 tnoremap <Esc> <C-\><C-n>
+tnoremap jj <C-\><C-n>
 
 " leader configs
 
@@ -164,6 +150,8 @@ nnoremap <leader>t :terminal<CR>i
 " Reload vimrc
 nnoremap <leader>r :source ~/.vimrc<CR>
 
+nnoremap <leader>v :wincmd v<bar> :Ex <bar> :vertical resize 30 <CR>
+
 " window control
 nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
@@ -171,4 +159,32 @@ nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 nnoremap <A-c> <C-w>c
 nnoremap <A-v> <C-w>v
+
+" Map jj to the escape key
+inoremap jj <Esc>
+
+" Configuration for Conqueror of completion
+"
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+" Trigger completion
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+" Move through the completion list
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" Confirm completion choice
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
