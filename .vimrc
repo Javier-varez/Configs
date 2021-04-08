@@ -26,6 +26,12 @@ Plugin 'junegunn/fzf.vim'
 
 Plugin 'morhetz/gruvbox' " Color scheme
 Plugin 'mbbill/undotree' " Undo tree plugin
+Plugin 'junegunn/vim-emoji'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
+Plugin 'tpope/vim-fugitive'
+Plugin 'rhysd/vim-clang-format'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -73,17 +79,7 @@ function! StripTrailingWhitespaces()
   call cursor(l, c)
 endfun
 
-autocmd BufWritePre *.h,*.c,*.cpp,*.java,*.rust,*.py :call StripTrailingWhitespaces()
-
-function FormatBuffer()
-  if &modified && !empty(findfile('.clang-format', expand('%:p:h') . ';'))
-    let cursor_pos = getpos('.')
-    :%!clang-format
-    call setpos('.', cursor_pos)
-  endif
-endfunction
-
-autocmd BufWritePre *.h,*.hpp,*.c,*.cpp :call FormatBuffer()
+autocmd BufWritePre *.h,*.c,*.cpp,*.java,*.rust,*.py,*.cmake,CMakeLists.txt :call StripTrailingWhitespaces()
 augroup END
 
 " Configures lightline status bar to show up
@@ -188,3 +184,41 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Confirm completion choice
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+nnoremap <expr><C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nnoremap <expr><C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+inoremap <expr><C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<Right>"
+inoremap <expr><C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<Left>"
+
+set completefunc=emoji#complete
+
+nnoremap <leader>ze :%s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g<CR>
+inoremap <C-z> <C-x><C-u>
+
+" set vim update time to 100 ms for a responsive GitGutter
+set updatetime=100
+
+" Break undo sequences with , and ;
+inoremap , ,<C-g>u
+inoremap ; ;<C-g>u
+
+" vim fugitive
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gd :Gdiffsplit<CR>
+
+" Clang format
+let g:clang_format#detect_style_file = 1
+let g:clang_format#auto_format = 1
