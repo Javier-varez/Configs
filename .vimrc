@@ -1,5 +1,5 @@
 " Fish doesn't play all that well with others
-set shell=/bin/bash
+set shell=/bin/fish
 let mapleader = "\<Space>"
 
 set nocompatible              " be iMproved, required
@@ -29,9 +29,10 @@ Plugin 'mbbill/undotree' " Undo tree plugin
 Plugin 'junegunn/vim-emoji'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'easymotion/vim-easymotion'
-Plugin 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 Plugin 'tpope/vim-fugitive'
 Plugin 'rhysd/vim-clang-format'
+Plugin 'preservim/nerdtree'
+Plugin 'tpope/vim-commentary'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -100,6 +101,8 @@ nnoremap <down> <nop>
 " Left and right can switch buffers
 nnoremap <left> :bp<CR>
 nnoremap <right> :bn<CR>
+nnoremap <C-left> :tabp<CR>
+nnoremap <C-right> :tabn<CR>
 
 colorscheme gruvbox
 set background=dark   " Setting light mode
@@ -121,16 +124,14 @@ set nobackup
 set colorcolumn=80,100
 
 " Normal terminal mode with Esc
-tnoremap <Esc> <C-\><C-n>
-tnoremap jj <C-\><C-n>
+"tnoremap <Esc> <C-\><C-n>
+"tnoremap jj <C-\><C-n>
 
 " leader configs
 
 " Quick save
 nmap <leader>w :w<CR>
 
-" Quick exit
-nmap <leader>q :q<CR>
 nmap <leader>u :UndotreeToggle<CR>
 
 " Open file
@@ -222,3 +223,6 @@ nnoremap <leader>gd :Gdiffsplit<CR>
 " Clang format
 let g:clang_format#detect_style_file = 1
 let g:clang_format#auto_format = 1
+
+" nerdtree
+noremap <leader>n :NERDTreeToggle<CR>
