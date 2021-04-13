@@ -1,40 +1,37 @@
-" Fish doesn't play all that well with others
+
 set shell=/bin/fish
 let mapleader = "\<Space>"
 
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
+
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vim-syntastic/syntastic'
 Plug 'rust-lang/rust.vim' " Rust lang plugin
 Plug 'itchyny/lightline.vim' " Status bar
 Plug 'machakann/vim-highlightedyank' " Highlights the text that is yanked
-
-" Fuzzy finder
 Plug 'airblade/vim-rooter'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 Plug 'morhetz/gruvbox' " Color scheme
 Plug 'mbbill/undotree' " Undo tree plugin
 Plug 'junegunn/vim-emoji'
 Plug 'airblade/vim-gitgutter'
 Plug 'easymotion/vim-easymotion'
-Plug 'tpope/vim-fugitive'
 Plug 'rhysd/vim-clang-format'
 Plug 'preservim/nerdtree'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-fugitive'
 
 " All of your Plugins must be added before the following line
 call plug#end()
-filetype plugin indent on    " required
 
 set relativenumber
 set number
 set wildmenu
 set wildmode=full
+set scrolloff=8
 
 let g:rustfmt_autosave = 1
 
@@ -46,7 +43,7 @@ autocmd BufRead,BufNewFile *.cpp,*.c,*.h :set tabstop=2
 autocmd BufRead,BufNewFile *.cpp,*.c,*.h :set shiftwidth=2
 
 " Use a column width of 72 for the commit messages
-autocmd BufRead,BufNewFile COMMIT_EDITMSG :set colorcolumn=72
+autocmd BufRead,BufNewFile COMMIT_EDITMSG :set colorcolumn=50,72
 
 autocmd BufRead,BufNewFile CMakeLists.txt,*.cmake :set expandtab
 autocmd BufRead,BufNewFile CMakeLists.txt,*.cmake :set tabstop=2
@@ -116,9 +113,9 @@ nmap <leader>q :q<CR>
 
 nmap <leader>u :UndotreeToggle<CR>
 
-" Open file
-nnoremap <leader>e :call fzf#run({'source': 'git ls-files', 'sink': 'e'})<CR>
-nnoremap <leader>o :call fzf#run({'sink': 'e'})<CR>
+" Search project
+nnoremap <leader>ps <CMD>Telescope live_grep<CR>
+nnoremap <leader>ff <CMD>Telescope find_files<CR>
 
 " Drop a buffer
 nnoremap <leader>d :bd<CR>
