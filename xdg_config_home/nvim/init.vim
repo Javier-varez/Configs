@@ -35,6 +35,11 @@ set scrolloff=8
 
 let g:rustfmt_autosave = 1
 
+" Sensible defaults for tab config
+set expandtab
+set tabstop=4
+set shiftwidth=4
+
 " Tab configuration for C++ and C
 augroup JAVIER_ALVAREZ
 autocmd!
@@ -161,8 +166,9 @@ inoremap <silent><expr> <Tab>
       \ <SID>check_back_space() ? "\<Tab>" :
       \ coc#refresh()
 
-" Move through the completion list
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" Move through the completion list. Otherwise S-Tab inserts an actual tab.
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<C-V>\<Tab>"
+
 " Confirm completion choice
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
