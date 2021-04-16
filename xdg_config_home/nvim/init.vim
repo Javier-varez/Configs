@@ -110,6 +110,7 @@ set colorcolumn=80,100
 " Quick save
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
+nmap <leader>Q :qall!<CR>
 
 nmap <leader>u :UndotreeToggle<CR>
 
@@ -146,6 +147,7 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <silent> rr <Plug>(coc-rename)
 
 " Use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
