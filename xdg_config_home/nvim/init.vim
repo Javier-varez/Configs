@@ -23,6 +23,7 @@ Plug 'preservim/nerdtree'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-fugitive'
+Plug 'mklabs/vim-cowsay'
 
 " All of your Plugins must be added before the following line
 call plug#end()
