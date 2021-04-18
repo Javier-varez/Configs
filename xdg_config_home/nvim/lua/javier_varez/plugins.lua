@@ -1,5 +1,5 @@
 
-return require('packer').startup(function()
+require('packer').startup(function()
     use 'wbthomason/packer.nvim'
     use { 'neoclide/coc.nvim', branch = 'release' }
     use 'vim-syntastic/syntastic'
@@ -21,5 +21,6 @@ return require('packer').startup(function()
     use 'tpope/vim-sensible'
     use 'tpope/vim-fugitive'
     use 'mklabs/vim-cowsay'
+    use 'alfredodeza/pytest.vim'
 end)
 

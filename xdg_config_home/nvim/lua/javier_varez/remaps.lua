@@ -29,6 +29,10 @@ vim.api.nvim_set_keymap('n', '<leader>ff', '<Cmd>Telescope find_files<CR>', {
     noremap = true,
     silent=true
 })
+vim.api.nvim_set_keymap('n', '<leader>fv', '<Cmd>lua require("javier_varez.telescope").search_vimrc() <CR>', { 
+    noremap = true,
+    silent=true
+})
 
 -- Drop a buffer
 vim.api.nvim_set_keymap('n', '<leader>d', '<Cmd>bd<CR>', { noremap = true, silent=true })
