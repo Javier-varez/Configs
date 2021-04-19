@@ -11,6 +11,7 @@ require('javier_varez.plugins')
 require('javier_varez.options')
 require('javier_varez.autocmds')
 require('javier_varez.remaps')
+require('jemoji')
 EOF
 
 " Conquer of completion

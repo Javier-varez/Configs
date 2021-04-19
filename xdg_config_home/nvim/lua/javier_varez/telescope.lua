@@ -88,7 +88,7 @@ M.emoji_finder = function()
     local sorters = require('telescope.sorters')
     local action_set = require('telescope.actions.set')
     local action_state = require('telescope.actions.state')
-    local emojis = require('javier_varez.emojis')
+    local emojis = require('javier_varez.emoji')
 
     local buffer = vim.api.nvim_get_current_buf()
     local cursor = get_cursor_position()
@@ -107,10 +107,11 @@ M.emoji_finder = function()
         },
         sorter = sorters.get_generic_fuzzy_sorter(),
         attach_mappings = function()
-            action_set.select:replace(function()
+            action_set.select:replace(function(prompt_bufnr)
                 local emoji = action_state.get_selected_entry()
                 vim.api.nvim_buf_set_text(buffer, cursor.row, cursor.column,
                     cursor.row, cursor.column, { emoji.value })
+                require('telescope.actions').close(prompt_bufnr)
             end)
             return true
         end
