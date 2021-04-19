@@ -25,11 +25,23 @@ vim.api.nvim_set_keymap('n', '<leader>ps', '<Cmd>Telescope live_grep<CR>', {
     noremap = true,
     silent=true
 })
-vim.api.nvim_set_keymap('n', '<leader>ff', '<Cmd>Telescope find_files<CR>', { 
+vim.api.nvim_set_keymap('n', '<leader>ff', '<Cmd>Telescope find_files<CR>', {
     noremap = true,
     silent=true
 })
-vim.api.nvim_set_keymap('n', '<leader>fv', '<Cmd>lua require("javier_varez.telescope").search_vimrc() <CR>', { 
+vim.api.nvim_set_keymap('n', '<leader>fv', '<Cmd>lua require("javier_varez.telescope").search_vimrc() <CR>', {
+    noremap = true,
+    silent=true
+})
+vim.api.nvim_set_keymap('n', '<leader>fe', '<Cmd>lua require("javier_varez.telescope").emoji_finder()<CR>', {
+    noremap = true,
+    silent=true
+})
+vim.api.nvim_set_keymap('i', '<C-e>', '<C-o><Cmd>lua require("javier_varez.telescope").emoji_finder()<CR>', {
+    noremap = false,
+    silent=false
+})
+vim.api.nvim_set_keymap('n', '<leader>fb', '<Cmd>lua require("telescope").current_buffer_fuzzy_find()<CR>', {
     noremap = true,
     silent=true
 })
