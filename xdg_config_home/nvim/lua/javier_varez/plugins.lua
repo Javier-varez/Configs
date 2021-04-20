@@ -22,5 +22,13 @@ require('packer').startup(function()
     use 'tpope/vim-fugitive'
     use 'mklabs/vim-cowsay'
     use 'alfredodeza/pytest.vim'
+    use 'mhinz/vim-startify'
+    use 'tpope/vim-surround'
+    use 'javier-varez/neomoji.nvim'
+    use 'cappyzawa/trim.nvim'
 end)
+
+require('trim').setup({
+    disable = { "markdown" },
+})
 

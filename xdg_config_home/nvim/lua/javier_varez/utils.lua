@@ -10,4 +10,3 @@ nvim_create_autogroups = function (definitions)
 		vim.api.nvim_command('augroup END')
 	end
 end
-

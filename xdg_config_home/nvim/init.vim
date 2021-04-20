@@ -11,7 +11,6 @@ require('javier_varez.plugins')
 require('javier_varez.options')
 require('javier_varez.autocmds')
 require('javier_varez.remaps')
-require('jemoji')
 EOF
 
 " Conquer of completion
@@ -45,4 +44,3 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call ShowDocumentation()<CR>
-
