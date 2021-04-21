@@ -65,11 +65,12 @@ vim.api.nvim_set_keymap('i', 'jj', '<Esc>', { noremap = true, silent=true })
 
 --
 -- Configuration for Conquer of Completion
-vim.api.nvim_set_keymap('n', 'gd', '<plug>(coc-definition)', { noremap = true, silent=true })
-vim.api.nvim_set_keymap('n', 'gy', '<plug>(coc-type-definition)', { noremap = true, silent=true })
-vim.api.nvim_set_keymap('n', 'gi', '<plug>(coc-implementation)', { noremap = true, silent=true })
-vim.api.nvim_set_keymap('n', 'gr', '<plug>(coc-references)', { noremap = true, silent=true })
-vim.api.nvim_set_keymap('n', 'rr', '<plug>(coc-rename)', { noremap = true, silent=true })
+vim.api.nvim_set_keymap('n', 'gd', '<Plug>(coc-definition)', { noremap = false, silent=false })
+vim.api.nvim_set_keymap('n', 'gy', '<Plug>(coc-type-definition)', { noremap = false, silent=false })
+vim.api.nvim_set_keymap('n', 'gi', '<Plug>(coc-implementation)', { noremap = false, silent=false })
+vim.api.nvim_set_keymap('n', 'gr', '<Plug>(coc-references)', { noremap = false, silent=false })
+vim.api.nvim_set_keymap('n', 'rr', '<Plug>(coc-rename)', { noremap = false, silent=false })
+vim.api.nvim_set_keymap('n', 'gf', '<Plug>(coc-fix-current)', { noremap = false, silent=false })
 
 -- Remap <C-f> and <C-b> for scroll float windows/popups.
 vim.api.nvim_set_keymap('n', 'C-f', 'coc#float#has_scroll() ? coc#float#scroll(1) : "<C-f>"', {
