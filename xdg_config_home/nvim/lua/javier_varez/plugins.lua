@@ -26,9 +26,9 @@ require('packer').startup(function()
     use 'tpope/vim-surround'
     use 'javier-varez/neomoji.nvim'
     use 'cappyzawa/trim.nvim'
+    use 'dbeniamine/cheat.sh-vim'
 end)
 
 require('trim').setup({
     disable = { "markdown" },
 })
-
