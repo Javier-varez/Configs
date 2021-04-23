@@ -21,6 +21,7 @@ local data_dir = vim.fn.stdpath('data')
 vim.o.undodir = data_dir..'/vimdid'
 
 vim.o.listchars=[[eol:↵,trail:~,tab:>-,nbsp:␣]]
+vim.wo.list = true
 
 -- Disable highlighting after the search is done
 vim.o.hlsearch = false
@@ -37,4 +38,3 @@ vim.o.backup = false
 
 -- Set vim update time to 100 ms for a responsive GitGutter
 vim.o.updatetime = 100
-

@@ -57,23 +57,6 @@ require('telescope').setup{
 
 require('telescope').load_extension('fzy_native')
 
-local get_cursor_position = function(buffer)
-    local cursor = vim.api.nvim_win_get_cursor(0)
-    local row = cursor[1] - 1
-    local column = cursor[2]
-
-    -- We want to get the next position
-    local current_line = vim.api.nvim_buf_get_lines(buffer, row, row + 1, true)
-    if #current_line[1] > 0 then
-        column = column + 1;
-    end
-
-    return {
-        row = row,
-        column = column
-    }
-end
-
 local M = {}
 M.search_vimrc = function()
     require('telescope.builtin').find_files {
