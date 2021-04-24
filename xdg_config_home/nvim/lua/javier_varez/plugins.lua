@@ -27,8 +27,27 @@ require('packer').startup(function()
     use 'javier-varez/neomoji.nvim'
     use 'cappyzawa/trim.nvim'
     use 'dbeniamine/cheat.sh-vim'
+    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 end)
 
 require('trim').setup({
     disable = { "markdown" },
 })
+
+require'nvim-treesitter.configs'.setup {
+    highlight = {
+        enable = true,
+    },
+    indent = {
+        enable = true,
+    },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = "gnn",
+            node_incremental = "grn",
+            scope_incremental = "grc",
+            node_decremental = "grm",
+        },
+    },
+}
