@@ -2,6 +2,7 @@
 require('packer').startup(function()
     use 'wbthomason/packer.nvim'
     use { 'neoclide/coc.nvim', branch = 'release' }
+    use 'rafcamlet/coc-nvim-lua'
     use 'vim-syntastic/syntastic'
     use 'rust-lang/rust.vim'
     use 'itchyny/lightline.vim'
@@ -28,6 +29,7 @@ require('packer').startup(function()
     use 'cappyzawa/trim.nvim'
     use 'dbeniamine/cheat.sh-vim'
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    use 'nvim-treesitter/playground'
 end)
 
 require('trim').setup({
@@ -49,5 +51,8 @@ require'nvim-treesitter.configs'.setup {
             scope_incremental = "grc",
             node_decremental = "grm",
         },
+    },
+    playground = {
+        enable = true,
     },
 }

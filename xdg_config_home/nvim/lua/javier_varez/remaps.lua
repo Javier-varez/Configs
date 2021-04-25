@@ -33,7 +33,7 @@ vim.api.nvim_set_keymap('n', '<leader>fv', '<Cmd>lua require("javier_varez.teles
     noremap = true,
     silent=true
 })
-vim.api.nvim_set_keymap('n', '<leader>fb', '<Cmd>lua require("telescope").current_buffer_fuzzy_find()<CR>', {
+vim.api.nvim_set_keymap('n', '<leader>fp', '<Cmd>lua require("javier_varez.telescope").search_plugins() <CR>', {
     noremap = true,
     silent=true
 })
@@ -44,6 +44,14 @@ vim.api.nvim_set_keymap('n', '<leader>fe', '<Cmd>lua require("neomoji").find()<C
 vim.api.nvim_set_keymap('i', '<A-e>', '<C-o><Cmd>lua require("neomoji").find()<CR>', {
     noremap = false,
     silent=false
+})
+vim.api.nvim_set_keymap('n', '<leader>ab', '<Cmd>lua require("aosp_nvim").build_target()<CR>', {
+    noremap = true,
+    silent=true
+})
+vim.api.nvim_set_keymap('n', '<leader>ar', '<Cmd>lua require("aosp_nvim").reload()<CR>', {
+    noremap = true,
+    silent=true
 })
 
 -- Drop a buffer
@@ -107,5 +115,11 @@ vim.api.nvim_set_keymap('n', '<Leader>n', '<Cmd>NERDTreeToggle<CR>', {
 -- Reload current lua file
 vim.api.nvim_set_keymap('n', '<Leader>rcf', '<Cmd>luafile %<CR>', {
     noremap = true,
+    silent=false
+})
+
+-- lua tests
+vim.api.nvim_set_keymap('n', '<Leader>lt', '<Plug>PlenaryTestFile', {
+    noremap = false,
     silent=false
 })
