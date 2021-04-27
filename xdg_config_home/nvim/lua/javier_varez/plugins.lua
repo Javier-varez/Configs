@@ -1,5 +1,6 @@
 
 require('packer').startup(function()
+    local use = use
     use 'wbthomason/packer.nvim'
     use { 'neoclide/coc.nvim', branch = 'release' }
     use 'rafcamlet/coc-nvim-lua'
@@ -30,6 +31,7 @@ require('packer').startup(function()
     use 'dbeniamine/cheat.sh-vim'
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
     use 'nvim-treesitter/playground'
+    use 'akinsho/nvim-toggleterm.lua'
 end)
 
 require('trim').setup({
@@ -55,4 +57,16 @@ require'nvim-treesitter.configs'.setup {
     playground = {
         enable = true,
     },
+}
+
+require"toggleterm".setup{
+    size = 20,
+    open_mapping = [[<c-\>]],
+    hide_numbers = true,
+    shade_filetypes = {},
+    shade_terminals = true,
+    start_in_insert = true,
+    persist_size = true,
+    direction = 'horizontal',
+    shell = vim.o.shell,
 }
