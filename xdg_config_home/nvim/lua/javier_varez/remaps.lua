@@ -49,9 +49,13 @@ vim.api.nvim_set_keymap('n', '<leader>ab', '<Cmd>lua require("aosp_nvim").build_
     noremap = true,
     silent=true
 })
-vim.api.nvim_set_keymap('n', '<leader>ar', '<Cmd>lua require("plenary.reload").reload_module("aosp_nvim")<CR>', {
+vim.api.nvim_set_keymap('n', '<leader>ap', '<Cmd>lua require("aosp_nvim").build_and_push()<CR>', {
     noremap = true,
-    silent = false
+    silent=true
+})
+vim.api.nvim_set_keymap('n', '<leader>at', '<Cmd>lua require("aosp_nvim").toggle_display()<CR>', {
+    noremap = true,
+    silent=true
 })
 
 -- Drop a buffer
