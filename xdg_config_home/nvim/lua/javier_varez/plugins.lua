@@ -27,11 +27,13 @@ require('packer').startup(function()
     use 'mhinz/vim-startify'
     use 'tpope/vim-surround'
     use 'javier-varez/neomoji.nvim'
+    use 'javier-varez/aosp.nvim'
     use 'cappyzawa/trim.nvim'
     use 'dbeniamine/cheat.sh-vim'
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
     use 'nvim-treesitter/playground'
     use 'akinsho/nvim-toggleterm.lua'
+    use 'powerman/vim-plugin-AnsiEsc'
 end)
 
 require('trim').setup({
