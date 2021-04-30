@@ -4,10 +4,10 @@ vim.api.nvim_set_keymap('n', '<Up>', '<Nop>', { noremap = true, silent=true })
 vim.api.nvim_set_keymap('n', '<Down>', '<Nop>', { noremap = true, silent=true })
 
 --  Left and right can switch buffers
-vim.api.nvim_set_keymap('n', '<Left>', '<Cmd>bp<CR>', { noremap = true, silent=true })
-vim.api.nvim_set_keymap('n', '<Right>', '<Cmd>bn<CR>', { noremap = true, silent=true })
-vim.api.nvim_set_keymap('n', '<C-Left>', '<Cmd>tabp<CR>', { noremap = true, silent=true })
-vim.api.nvim_set_keymap('n', '<C-Right>', '<Cmd>tabn<CR>', { noremap = true, silent=true })
+vim.api.nvim_set_keymap('n', '<Left>', '<Cmd>tabp<CR>', { noremap = true, silent=true })
+vim.api.nvim_set_keymap('n', '<Right>', '<Cmd>tabn<CR>', { noremap = true, silent=true })
+vim.api.nvim_set_keymap('n', '<C-Left>', '<Cmd>bp<CR>', { noremap = true, silent=true })
+vim.api.nvim_set_keymap('n', '<C-Right>', '<Cmd>bn<CR>', { noremap = true, silent=true })
 
 -- Quick save
 vim.api.nvim_set_keymap('n', '<Leader>w', '<Cmd>w<CR>', { noremap = true, silent=true })
