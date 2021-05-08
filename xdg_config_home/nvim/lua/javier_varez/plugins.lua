@@ -34,6 +34,8 @@ require('packer').startup(function()
     use 'nvim-treesitter/playground'
     use 'akinsho/nvim-toggleterm.lua'
     use 'powerman/vim-plugin-AnsiEsc'
+    use 'ThePrimeagen/vim-be-good'
+    use { 'glacambre/firenvim', run = ':call firenvim#install(0)' }
 end)
 
 require('trim').setup({
