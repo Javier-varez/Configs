@@ -36,6 +36,7 @@ require('packer').startup(function()
     use 'powerman/vim-plugin-AnsiEsc'
     use 'ThePrimeagen/vim-be-good'
     use { 'glacambre/firenvim', run = ':call firenvim#install(0)' }
+    use 'norcalli/nvim-terminal.lua'
 end)
 
 require('trim').setup({
@@ -74,3 +75,5 @@ require"toggleterm".setup{
     direction = 'horizontal',
     shell = vim.o.shell,
 }
+
+require'terminal'.setup()

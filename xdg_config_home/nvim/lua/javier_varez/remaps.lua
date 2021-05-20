@@ -57,6 +57,14 @@ vim.api.nvim_set_keymap('n', '<leader>at', '<Cmd>lua require("aosp_nvim").toggle
     noremap = true,
     silent=true
 })
+vim.api.nvim_set_keymap('n', '<leader>ag', '<Cmd>lua require("aosp_nvim.telescope").live_grep()<CR>', {
+    noremap = true,
+    silent=true
+})
+vim.api.nvim_set_keymap('n', '<leader>af', '<Cmd>lua require("aosp_nvim.telescope").find_files()<CR>', {
+    noremap = true,
+    silent=true
+})
 
 -- Drop a buffer
 vim.api.nvim_set_keymap('n', '<leader>d', '<Cmd>bd<CR>', { noremap = true, silent=true })
