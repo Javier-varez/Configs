@@ -77,3 +77,18 @@ require"toggleterm".setup{
 }
 
 require'terminal'.setup()
+
+-- Set the color scheme from gruvbox
+vim.cmd('colorscheme gruvbox')
+
+vim.g.rustfmt_autosave = true
+
+-- Lightline configuration
+vim.g.lightline = {
+    active = {
+        left = { {'mode', 'paste'}, { 'readonly', 'filename', 'modified', 'treesitter' } }
+    },
+    component = {
+        treesitter = '%{nvim_treesitter#statusline(90)}'
+    }
+}

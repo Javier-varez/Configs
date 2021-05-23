@@ -1,7 +1,4 @@
 
--- Set the color scheme from gruvbox
-vim.cmd('colorscheme gruvbox')
-
 -- Global or window configurations
 vim.wo.relativenumber = true
 vim.wo.number = true
@@ -39,4 +36,4 @@ vim.o.backup = false
 -- Set vim update time to 100 ms for a responsive GitGutter
 vim.o.updatetime = 100
 
-vim.api.nvim_exec("let g:rustfmt_autosave = 1", false)
+vim.o.showmode = false
