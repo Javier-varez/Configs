@@ -2,8 +2,9 @@
 require('packer').startup(function()
     local use = use
     use 'wbthomason/packer.nvim'
-    use { 'neoclide/coc.nvim', branch = 'release' }
-    use 'rafcamlet/coc-nvim-lua'
+    use 'neovim/nvim-lspconfig'
+    use 'hrsh7th/nvim-compe'
+    use 'simrat39/rust-tools.nvim'
     use 'vim-syntastic/syntastic'
     use 'rust-lang/rust.vim'
     use 'itchyny/lightline.vim'
@@ -29,7 +30,6 @@ require('packer').startup(function()
     use 'javier-varez/neomoji.nvim'
     use 'javier-varez/aosp.nvim'
     use 'cappyzawa/trim.nvim'
-    use 'dbeniamine/cheat.sh-vim'
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
     use 'nvim-treesitter/playground'
     use 'akinsho/nvim-toggleterm.lua'
@@ -81,6 +81,7 @@ require'terminal'.setup()
 -- Set the color scheme from gruvbox
 vim.cmd('colorscheme gruvbox')
 
+-- Rustfmt config
 vim.g.rustfmt_autosave = true
 
 -- Lightline configuration
@@ -91,4 +92,143 @@ vim.g.lightline = {
     component = {
         treesitter = '%{nvim_treesitter#statusline(90)}'
     }
+}
+
+-- Clang format
+vim.g['clang_format#detect_style_file'] = true
+vim.g['clang_format#auto_format'] = true
+
+-- Rust tools
+local opts = {
+    tools = { -- rust-tools options
+        -- automatically set inlay hints (type hints)
+        -- There is an issue due to which the hints are not applied on the first
+        -- opened file. For now, write to the file to trigger a reapplication of
+        -- the hints or just run :RustSetInlayHints.
+        -- default: true
+        autoSetHints = true,
+
+        -- whether to show hover actions inside the hover window
+        -- this overrides the default hover handler
+        -- default: true
+        hover_with_actions = false,
+
+        runnables = {
+            -- whether to use telescope for selection menu or not
+            -- default: true
+            use_telescope = true
+
+            -- rest of the opts are forwarded to telescope
+        },
+
+        inlay_hints = {
+            -- wheter to show parameter hints with the inlay hints or not
+            -- default: true
+            show_parameter_hints = true,
+
+            -- prefix for parameter hints
+            -- default: "<-"
+            parameter_hints_prefix = "<-",
+
+            -- prefix for all the other hints (type, chaining)
+            -- default: "=>"
+            other_hints_prefix  = "=>",
+
+            -- whether to align to the lenght of the longest line in the file
+            max_len_align = false,
+
+            -- padding from the left if max_len_align is true
+            max_len_align_padding = 1,
+
+            -- whether to align to the extreme right or not
+            right_align = false,
+
+            -- padding from the right if right_align is true
+            right_align_padding = 7,
+        },
+
+        hover_actions = {
+            -- the border that is used for the hover window
+            -- see vim.api.nvim_open_win()
+            border = {
+              {"╭", "FloatBorder"},
+              {"─", "FloatBorder"},
+              {"╮", "FloatBorder"},
+              {"│", "FloatBorder"},
+              {"╯", "FloatBorder"},
+              {"─", "FloatBorder"},
+              {"╰", "FloatBorder"},
+              {"│", "FloatBorder"}
+            },
+        }
+    },
+
+    -- all the opts to send to nvim-lspconfig
+    -- these override the defaults set by rust-tools.nvim
+    -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
+    server = {}, -- rust-analyer options
+}
+
+require('rust-tools').setup(opts)
+
+require'lspconfig'.clangd.setup{}
+local nvim_lsp = require('lspconfig')
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
+
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<space><space>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap("n", "<space><space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+
+end
+
+-- Use a loop to conveniently call 'setup' on multiple servers and
+-- map buffer local keybindings when the language server attaches
+local servers = { "clangd", "pyright" }
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup { on_attach = on_attach }
+end
+
+require'compe'.setup {
+  enabled = true;
+  autocomplete = true;
+  debug = false;
+  min_length = 1;
+  preselect = 'enable';
+  throttle_time = 80;
+  source_timeout = 200;
+  incomplete_delay = 400;
+  max_abbr_width = 100;
+  max_kind_width = 100;
+  max_menu_width = 100;
+  documentation = true;
+
+  source = {
+    path = true;
+    buffer = true;
+    calc = true;
+    nvim_lsp = true;
+    nvim_lua = true;
+    vsnip = false;
+    ultisnips = false;
+  };
 }
