@@ -39,3 +39,5 @@ vim.o.updatetime = 100
 vim.o.showmode = false
 
 vim.o.completeopt = "menuone,noselect"
+
+vim.o.termguicolors = true
