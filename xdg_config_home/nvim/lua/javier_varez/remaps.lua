@@ -69,6 +69,10 @@ vim.api.nvim_set_keymap('n', '<leader>ac', '<Cmd>lua require("aosp_nvim").compdb
     noremap = true,
     silent=true
 })
+vim.api.nvim_set_keymap('n', '<leader>ar', '<Cmd>lua require("aosp_nvim").rebuild_module_info()<CR>', {
+    noremap = true,
+    silent=true
+})
 
 -- Drop a buffer
 vim.api.nvim_set_keymap('n', '<leader>d', '<Cmd>bd<CR>', { noremap = true, silent=true })
