@@ -87,6 +87,7 @@ vim.api.nvim_set_keymap('n', '<A-k>', '<C-w>k', { noremap = true, silent=true })
 vim.api.nvim_set_keymap('n', '<A-l>', '<C-w>l', { noremap = true, silent=true })
 vim.api.nvim_set_keymap('n', '<A-c>', '<C-w>c', { noremap = true, silent=true })
 vim.api.nvim_set_keymap('n', '<A-v>', '<C-w>v', { noremap = true, silent=true })
+vim.api.nvim_set_keymap('n', '<A-s>', '<C-w>s', { noremap = true, silent=true })
 
 -- Map jj to the escape key
 vim.api.nvim_set_keymap('i', 'jj', '<Esc>', { noremap = true, silent=true })
