@@ -11,6 +11,6 @@ nvim_create_autogroups {
         { 'BufRead,BufNewFile', '*.cpp,*.c,*.hpp,*.h', ':set tabstop=2' },
         { 'BufRead,BufNewFile', '*.cpp,*.c,*.hpp,*.h', ':set shiftwidth=2' },
         { 'BufRead,BufNewFile', 'COMMIT_EDITMSG', ':set colorcolumn=50,72' },
+        { 'CursorHold', '*', 'lua vim.lsp.diagnostic.show_line_diagnostics()'}
     }
 }
-
