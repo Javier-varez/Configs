@@ -29,6 +29,8 @@ vim.api.nvim_set_keymap('n', '<leader>ff', '<Cmd>Telescope find_files<CR>', {
     noremap = true,
     silent=true
 })
+
+-- AOSP nvim plugin
 vim.api.nvim_set_keymap('n', '<leader>fv', '<Cmd>lua require("javier_varez.telescope").search_vimrc() <CR>', {
     noremap = true,
     silent=true
@@ -45,7 +47,7 @@ vim.api.nvim_set_keymap('i', '<A-e>', '<C-o><Cmd>lua require("neomoji").find()<C
     noremap = false,
     silent=false
 })
-vim.api.nvim_set_keymap('n', '<leader>ab', '<Cmd>lua require("aosp_nvim").build_target()<CR>', {
+vim.api.nvim_set_keymap('n', '<leader>ab', '<Cmd>lua require("aosp_nvim").build_target({ host_module = true })<CR>', {
     noremap = true,
     silent=true
 })
@@ -53,7 +55,7 @@ vim.api.nvim_set_keymap('n', '<leader>ap', '<Cmd>lua require("aosp_nvim").build_
     noremap = true,
     silent=true
 })
-vim.api.nvim_set_keymap('n', '<leader>at', '<Cmd>lua require("aosp_nvim").toggle_display()<CR>', {
+vim.api.nvim_set_keymap('n', '<leader>ad', '<Cmd>lua require("aosp_nvim").toggle_display()<CR>', {
     noremap = true,
     silent=true
 })
@@ -70,6 +72,14 @@ vim.api.nvim_set_keymap('n', '<leader>ac', '<Cmd>lua require("aosp_nvim").compdb
     silent=true
 })
 vim.api.nvim_set_keymap('n', '<leader>ar', '<Cmd>lua require("aosp_nvim").rebuild_module_info()<CR>', {
+    noremap = true,
+    silent=true
+})
+vim.api.nvim_set_keymap('n', '<leader>atd', '<Cmd>lua require("aosp_nvim").run_test()<CR>', {
+    noremap = true,
+    silent=true
+})
+vim.api.nvim_set_keymap('n', '<leader>ath', '<Cmd>lua require("aosp_nvim").run_test({ host_module = true })<CR>', {
     noremap = true,
     silent=true
 })
