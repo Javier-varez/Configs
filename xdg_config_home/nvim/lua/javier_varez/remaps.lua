@@ -88,7 +88,7 @@ vim.api.nvim_set_keymap('n', '<leader>ath', '<Cmd>lua require("aosp_nvim").run_t
 vim.api.nvim_set_keymap('n', '<leader>d', '<Cmd>bd<CR>', { noremap = true, silent=true })
 
 -- Open a terminal
-vim.api.nvim_set_keymap('n', '<leader>t', '<Cmd>terminal<CR>i', { noremap = true, silent=true })
+vim.api.nvim_set_keymap('n', '<leader>t', '<Cmd>tabe<CR><Cmd>terminal<CR>i', { noremap = true, silent=true })
 
 -- Window control
 vim.api.nvim_set_keymap('n', '<A-h>', '<C-w>h', { noremap = true, silent=true })
