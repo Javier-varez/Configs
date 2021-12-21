@@ -1,18 +1,13 @@
 #! /bin/sh
 
-xrandr --output DP-3 --primary --left-of DP-0
-
 pgrep -x sxhkd > /dev/null || sxhkd &
 
-bspc monitor DP-3 -d I II III IV V
-bspc monitor DP-0 -d VI VII VIII IX X
+bspc monitor eDP-1 -d I II III IV V
 
-nitrogen --set-scaled ~/Documents/rust.jpg --head=0
-nitrogen --set-scaled ~/Documents/rust.jpg --head=1
+nitrogen --set-scaled ~/Documents/rust.png --head=0
 
-pkill -x polybar > /dev/null 
-polybar DP-0 &
-polybar DP-3 &
+pkill -x polybar > /dev/null
+polybar eDP-1 &
 
 bspc config border_width         2
 bspc config window_gap          12
@@ -28,4 +23,3 @@ bspc rule -a Element:element desktop='^7'
 bspc rule -a Slack:slack desktop='^8'
 bspc rule -a discord desktop='^9'
 bspc rule -a Zulip:zulip desktop='^10'
-
