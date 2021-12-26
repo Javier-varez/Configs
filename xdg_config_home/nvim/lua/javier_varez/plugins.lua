@@ -2,7 +2,11 @@ require('packer').startup(function()
     local use = use
     use 'wbthomason/packer.nvim'
     use 'neovim/nvim-lspconfig'
-    use 'hrsh7th/nvim-compe'
+    use 'hrsh7th/cmp-nvim-lsp'
+    use 'hrsh7th/cmp-buffer'
+    use 'hrsh7th/cmp-path'
+    use 'hrsh7th/cmp-cmdline'
+    use 'hrsh7th/nvim-cmp'
     use 'simrat39/rust-tools.nvim'
     use 'vim-syntastic/syntastic'
     use 'rust-lang/rust.vim'
@@ -37,6 +41,9 @@ require('packer').startup(function()
     use { 'glacambre/firenvim', run = ':call firenvim#install(0)' }
     use 'norcalli/nvim-terminal.lua'
     use 'saecki/crates.nvim'
+    use "rebelot/kanagawa.nvim"
+    use 'dcampos/nvim-snippy'
+    use 'dcampos/cmp-snippy'
 end)
 
 require('trim').setup({
@@ -78,8 +85,24 @@ require"toggleterm".setup{
 
 require'terminal'.setup()
 
+-- Default options:
+require('kanagawa').setup({
+    undercurl = true,           -- enable undercurls
+    commentStyle = "italic",
+    functionStyle = "NONE",
+    keywordStyle = "italic",
+    statementStyle = "bold",
+    typeStyle = "NONE",
+    variablebuiltinStyle = "italic",
+    specialReturn = true,       -- special highlight for the return keyword
+    specialException = true,    -- special highlight for exception handling keywords
+    transparent = true,        -- do not set background color
+    colors = {},
+    overrides = {},
+})
+
 -- Set the color scheme from gruvbox
-vim.cmd('colorscheme gruvbox')
+vim.cmd('colorscheme kanagawa')
 
 -- Rustfmt config
 vim.g.rustfmt_autosave = true
@@ -96,7 +119,54 @@ vim.g.lightline = {
 
 -- Clang format
 vim.g['clang_format#detect_style_file'] = true
-vim.g['clang_format#auto_format'] = true
+vim.g['clang_format#auto_format'] = false
+
+-- Setup nvim-cmp.
+local cmp = require'cmp'
+
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      require('snippy').expand_snippet(args.body)
+    end,
+  },
+  mapping = {
+    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+    ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+    ['<Tab>'] = cmp.mapping.select_next_item(),
+    ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+    ['<C-e>'] = cmp.mapping({
+      i = cmp.mapping.abort(),
+      c = cmp.mapping.close(),
+    }),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'snippy' }, -- For snippy users.
+  }, {
+    { name = 'buffer' },
+    { name = 'path' },
+  })
+})
+
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline('/', {
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  })
+})
 
 -- lsp config
 
@@ -142,11 +212,16 @@ local on_attach = function(_, bufnr)
 
 end
 
+local cmp_lsp_capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers = { "clangd", "pyright" }
 for _, lsp in ipairs(servers) do
-    nvim_lsp[lsp].setup { on_attach = on_attach }
+    nvim_lsp[lsp].setup {
+        on_attach = on_attach,
+        capabilities = cmp_lsp_capabilities
+    }
 end
 
 -- Rust tools
@@ -245,8 +320,9 @@ local rust_tools_opts = {
     -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
     server = {
         on_attach = rust_on_attach,
+        capabilities = cmp_lsp_capabilities,
         settings = {
-            rust_analyzer = {
+            ["rust-analyzer"] = {
                 procMacro = {
                     enable = true
                 }
@@ -304,31 +380,6 @@ if sumneko_root_path ~= nil then
     }
 
 end
-
-require'compe'.setup {
-  enabled = true;
-  autocomplete = true;
-  debug = false;
-  min_length = 1;
-  preselect = 'enable';
-  throttle_time = 80;
-  source_timeout = 200;
-  incomplete_delay = 400;
-  max_abbr_width = 100;
-  max_kind_width = 100;
-  max_menu_width = 100;
-  documentation = true;
-
-  source = {
-    path = true;
-    buffer = true;
-    calc = true;
-    nvim_lsp = true;
-    nvim_lua = true;
-    vsnip = false;
-    ultisnips = false;
-  };
-}
 
 require("crates").setup {
     avoid_prerelease = true, -- don't select a prerelease if the requirement does not have a suffix
