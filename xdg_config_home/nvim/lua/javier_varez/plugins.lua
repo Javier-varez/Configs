@@ -44,6 +44,7 @@ require('packer').startup(function()
     use "rebelot/kanagawa.nvim"
     use 'dcampos/nvim-snippy'
     use 'dcampos/cmp-snippy'
+    use 'rhysd/vim-grammarous'
 end)
 
 require('trim').setup({
