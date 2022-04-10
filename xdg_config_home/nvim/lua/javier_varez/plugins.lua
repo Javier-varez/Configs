@@ -120,7 +120,7 @@ vim.g.lightline = {
 
 -- Clang format
 vim.g['clang_format#detect_style_file'] = true
-vim.g['clang_format#auto_format'] = false
+vim.g['clang_format#auto_format'] = true
 
 -- Setup nvim-cmp.
 local cmp = require'cmp'
@@ -191,7 +191,7 @@ local on_attach = function(_, bufnr)
     buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+    buf_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
     buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
     buf_set_keymap('n', '<space><space>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
@@ -217,7 +217,7 @@ local cmp_lsp_capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "clangd", "jedi_language_server" }
+local servers = { "clangd", "jedi_language_server", "gopls" }
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
         on_attach = on_attach,
