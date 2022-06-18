@@ -5,6 +5,8 @@ vim.api.nvim_set_keymap('n', '<Down>', '<Nop>', { noremap = true, silent=true })
 --  Left and right can switch buffers
 vim.api.nvim_set_keymap('n', '<Left>', '<Cmd>tabp<CR>', { noremap = true, silent=true })
 vim.api.nvim_set_keymap('n', '<Right>', '<Cmd>tabn<CR>', { noremap = true, silent=true })
+vim.api.nvim_set_keymap('n', '<C-h>', '<Cmd>tabp<CR>', { noremap = true, silent=true })
+vim.api.nvim_set_keymap('n', '<C-l>', '<Cmd>tabn<CR>', { noremap = true, silent=true })
 vim.api.nvim_set_keymap('n', '<C-Left>', '<Cmd>bp<CR>', { noremap = true, silent=true })
 vim.api.nvim_set_keymap('n', '<C-Right>', '<Cmd>bn<CR>', { noremap = true, silent=true })
 
@@ -19,7 +21,7 @@ vim.api.nvim_set_keymap('n', '<Leader>u', '<Cmd>UndotreeToggle<CR>', {
     silent=true
 })
 
--- Search project
+-- Telescope
 vim.api.nvim_set_keymap('n', '<leader>ps', '<Cmd>Telescope live_grep<CR>', {
     noremap = true,
     silent=true
@@ -28,57 +30,19 @@ vim.api.nvim_set_keymap('n', '<leader>ff', '<Cmd>Telescope find_files<CR>', {
     noremap = true,
     silent=true
 })
-
--- AOSP nvim plugin
+vim.api.nvim_set_keymap('n', '<leader>fr', '<Cmd>lua require"telescope.builtin".lsp_references{}<CR>', {
+    noremap = true,
+    silent=true
+})
+vim.api.nvim_set_keymap('n', '<leader>fs', '<Cmd>lua require"telescope.builtin".lsp_dynamic_workspace_symbols{}<CR>', {
+    noremap = true,
+    silent=true
+})
+vim.api.nvim_set_keymap('n', '<leader>fd', '<Cmd>lua require"telescope.builtin".diagnostics{}<CR>', {
+    noremap = true,
+    silent=true
+})
 vim.api.nvim_set_keymap('n', '<leader>fv', '<Cmd>lua require("javier_varez.telescope").search_vimrc() <CR>', {
-    noremap = true,
-    silent=true
-})
-vim.api.nvim_set_keymap('n', '<leader>fp', '<Cmd>lua require("javier_varez.telescope").search_plugins() <CR>', {
-    noremap = true,
-    silent=true
-})
-vim.api.nvim_set_keymap('n', '<leader>fe', '<Cmd>lua require("neomoji").find()<CR>', {
-    noremap = true,
-    silent=true
-})
-vim.api.nvim_set_keymap('i', '<A-e>', '<C-o><Cmd>lua require("neomoji").find()<CR>', {
-    noremap = false,
-    silent=false
-})
-vim.api.nvim_set_keymap('n', '<leader>ab', '<Cmd>lua require("aosp_nvim").build_target({ host_module = true })<CR>', {
-    noremap = true,
-    silent=true
-})
-vim.api.nvim_set_keymap('n', '<leader>ap', '<Cmd>lua require("aosp_nvim").build_and_push()<CR>', {
-    noremap = true,
-    silent=true
-})
-vim.api.nvim_set_keymap('n', '<leader>ad', '<Cmd>lua require("aosp_nvim").toggle_display()<CR>', {
-    noremap = true,
-    silent=true
-})
-vim.api.nvim_set_keymap('n', '<leader>ag', '<Cmd>lua require("aosp_nvim.telescope").live_grep()<CR>', {
-    noremap = true,
-    silent=true
-})
-vim.api.nvim_set_keymap('n', '<leader>af', '<Cmd>lua require("aosp_nvim.telescope").find_files()<CR>', {
-    noremap = true,
-    silent=true
-})
-vim.api.nvim_set_keymap('n', '<leader>ac', '<Cmd>lua require("aosp_nvim").compdb()<CR>', {
-    noremap = true,
-    silent=true
-})
-vim.api.nvim_set_keymap('n', '<leader>ar', '<Cmd>lua require("aosp_nvim").rebuild_module_info()<CR>', {
-    noremap = true,
-    silent=true
-})
-vim.api.nvim_set_keymap('n', '<leader>atd', '<Cmd>lua require("aosp_nvim").run_test()<CR>', {
-    noremap = true,
-    silent=true
-})
-vim.api.nvim_set_keymap('n', '<leader>ath', '<Cmd>lua require("aosp_nvim").run_test({ host_module = true })<CR>', {
     noremap = true,
     silent=true
 })
@@ -106,11 +70,11 @@ vim.api.nvim_set_keymap('i', ',', ',<C-g>u', { noremap = true, silent=true })
 vim.api.nvim_set_keymap('i', ';', ';<C-g>u', { noremap = true, silent=true })
 
 -- Vim Fugitive
-vim.api.nvim_set_keymap('n', '<Leader>gs', '<Cmd>Gstatus<CR>', { noremap = true, silent=true })
+vim.api.nvim_set_keymap('n', '<Leader>gs', '<Cmd>Git status<CR>', { noremap = true, silent=true })
 vim.api.nvim_set_keymap('n', '<Leader>gd', '<Cmd>Gdiffsplit<CR>', { noremap = true, silent=true })
 
--- NerdTree
-vim.api.nvim_set_keymap('n', '<Leader>n', '<Cmd>NERDTreeToggle<CR>', {
+-- NvimTree
+vim.api.nvim_set_keymap('n', '<Leader>n', '<Cmd>NvimTreeToggle<CR>', {
     noremap = true,
     silent=true
 })

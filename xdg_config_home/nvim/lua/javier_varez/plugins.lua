@@ -8,43 +8,41 @@ require('packer').startup(function()
     use 'hrsh7th/cmp-cmdline'
     use 'hrsh7th/nvim-cmp'
     use 'simrat39/rust-tools.nvim'
-    use 'vim-syntastic/syntastic'
     use 'rust-lang/rust.vim'
-    use 'itchyny/lightline.vim'
     use 'machakann/vim-highlightedyank'
     use 'airblade/vim-rooter'
     use 'nvim-lua/popup.nvim'
     use 'nvim-lua/plenary.nvim'
     use 'nvim-telescope/telescope.nvim'
     use 'nvim-telescope/telescope-fzy-native.nvim'
-    use 'morhetz/gruvbox'
     use 'mbbill/undotree'
     use 'airblade/vim-gitgutter'
-    use 'easymotion/vim-easymotion'
     use 'rhysd/vim-clang-format'
-    use 'preservim/nerdtree'
     use 'tpope/vim-commentary'
     use 'tpope/vim-sensible'
     use 'tpope/vim-fugitive'
     use 'mklabs/vim-cowsay'
-    use 'alfredodeza/pytest.vim'
     use 'mhinz/vim-startify'
     use 'tpope/vim-surround'
-    use 'javier-varez/neomoji.nvim'
-    use 'javier-varez/aosp.nvim'
     use 'cappyzawa/trim.nvim'
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-    use 'nvim-treesitter/playground'
-    use 'akinsho/nvim-toggleterm.lua'
-    use 'powerman/vim-plugin-AnsiEsc'
-    use 'ThePrimeagen/vim-be-good'
-    use { 'glacambre/firenvim', run = ':call firenvim#install(0)' }
-    use 'norcalli/nvim-terminal.lua'
     use 'saecki/crates.nvim'
     use "rebelot/kanagawa.nvim"
     use 'dcampos/nvim-snippy'
     use 'dcampos/cmp-snippy'
     use 'rhysd/vim-grammarous'
+    use 'fatih/vim-go'
+    use { 'yamatsum/nvim-nonicons', requires = {'kyazdani42/nvim-web-devicons'} }
+    use {
+        'kyazdani42/nvim-tree.lua',
+        requires = {
+            'kyazdani42/nvim-web-devicons', -- optional, for file icon
+        },
+        tag = 'nightly' -- optional, updated every week. (see issue #1193)
+    }
+    use 'feline-nvim/feline.nvim'
+    use {'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons'}
+
 end)
 
 require('trim').setup({
@@ -72,29 +70,15 @@ require'nvim-treesitter.configs'.setup {
     },
 }
 
-require"toggleterm".setup{
-    size = 20,
-    open_mapping = [[<c-\>]],
-    hide_numbers = true,
-    shade_filetypes = {},
-    shade_terminals = true,
-    start_in_insert = true,
-    persist_size = true,
-    direction = 'horizontal',
-    shell = vim.o.shell,
-}
-
-require'terminal'.setup()
-
 -- Default options:
 require('kanagawa').setup({
     undercurl = true,           -- enable undercurls
-    commentStyle = "italic",
-    functionStyle = "NONE",
-    keywordStyle = "italic",
-    statementStyle = "bold",
-    typeStyle = "NONE",
-    variablebuiltinStyle = "italic",
+    commentStyle = { italic = true },
+    functionStyle = {},
+    keywordStyle = { italic = true },
+    statementStyle = { bold = true },
+    typeStyle = {},
+    variablebuiltinStyle = { italic = true },
     specialReturn = true,       -- special highlight for the return keyword
     specialException = true,    -- special highlight for exception handling keywords
     transparent = true,        -- do not set background color
@@ -102,21 +86,11 @@ require('kanagawa').setup({
     overrides = {},
 })
 
--- Set the color scheme from gruvbox
+-- Set the color scheme
 vim.cmd('colorscheme kanagawa')
 
 -- Rustfmt config
 vim.g.rustfmt_autosave = true
-
--- Lightline configuration
-vim.g.lightline = {
-    active = {
-        left = { {'mode', 'paste'}, { 'readonly', 'filename', 'modified', 'treesitter' } }
-    },
-    component = {
-        treesitter = '%{nvim_treesitter#statusline(90)}'
-    }
-}
 
 -- Clang format
 vim.g['clang_format#detect_style_file'] = true
@@ -425,7 +399,13 @@ require("crates").setup {
         keys = {
             hide = { "q", "<esc>" },
             select = { "<cr>" },
-            copy_version = { "yy" },
+            copy_value = { "yy" },
         },
     },
 }
+
+vim.opt.termguicolors = true
+require'nvim-tree'.setup {}
+require'nvim-nonicons'
+require'feline'.setup {}
+require("bufferline").setup{}
