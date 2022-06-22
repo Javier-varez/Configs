@@ -1,4 +1,3 @@
-
 -- Global or window configurations
 vim.wo.relativenumber = true
 vim.wo.number = true
@@ -41,3 +40,4 @@ vim.o.showmode = false
 vim.o.completeopt = "menuone,noselect"
 
 vim.o.termguicolors = true
+vim.o.mouse = 'a'

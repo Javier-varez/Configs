@@ -1,5 +1,5 @@
 require('packer').startup(function()
-    local use = use
+    local use = require'packer'.use
     use 'wbthomason/packer.nvim'
     use 'neovim/nvim-lspconfig'
     use 'hrsh7th/cmp-nvim-lsp'
@@ -404,8 +404,11 @@ require("crates").setup {
     },
 }
 
-vim.opt.termguicolors = true
 require'nvim-tree'.setup {}
 require'nvim-nonicons'
 require'feline'.setup {}
-require("bufferline").setup{}
+require'bufferline'.setup {
+    options = {
+        mode = "tabs"
+    }
+}
