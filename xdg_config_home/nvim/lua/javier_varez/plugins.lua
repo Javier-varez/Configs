@@ -45,9 +45,7 @@ require('packer').startup(function()
 
 end)
 
-require('trim').setup({
-    disable = { "markdown" },
-})
+require('trim').setup({})
 
 require'nvim-treesitter.configs'.setup {
     highlight = {
