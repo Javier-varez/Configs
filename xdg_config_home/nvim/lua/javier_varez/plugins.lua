@@ -235,10 +235,6 @@ local rust_tools_opts = {
         -- Automatically set inlay hints (type hints)
         autoSetHints = true,
 
-        -- Whether to show hover actions inside the hover window
-        -- This overrides the default hover handler
-        hover_with_actions = true,
-
         runnables = {
             -- whether to use telescope for selection menu or not
             use_telescope = true
