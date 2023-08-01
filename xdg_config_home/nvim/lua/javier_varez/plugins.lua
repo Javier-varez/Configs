@@ -81,7 +81,6 @@ require('kanagawa').setup({
     specialException = true,    -- special highlight for exception handling keywords
     transparent = true,        -- do not set background color
     colors = {},
-    overrides = {},
 })
 
 -- Set the color scheme
@@ -189,7 +188,7 @@ local cmp_lsp_capabilities = require('cmp_nvim_lsp').default_capabilities(vim.ls
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "clangd", "jedi_language_server", "gopls" }
+local servers = { "jedi_language_server", "gopls" }
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
         on_attach = on_attach,
@@ -197,8 +196,13 @@ for _, lsp in ipairs(servers) do
     }
 end
 
+nvim_lsp['clangd'].setup {
+    cmd = { "clangd", "--query-driver=*/**" },
+    on_attach = on_attach,
+    capabilities = cmp_lsp_capabilities
+}
+
 -- Rust tools
---
 local rust_on_attach = function(a, bufnr)
     on_attach(a, bufnr)
 
@@ -210,6 +214,20 @@ local rust_on_attach = function(a, bufnr)
     buf_set_keymap('n', 'K', '<Cmd>lua require"rust-tools.hover_actions".hover_actions()<CR>', opts)
     buf_set_keymap('n', '<space>rr', '<Cmd>lua require("rust-tools.runnables").runnables()<CR>', opts)
     buf_set_keymap('n', '<space>rc', '<Cmd>lua require"rust-tools.open_cargo_toml".open_cargo_toml()<CR>', opts)
+end
+
+local rust_analyzer_bin = ''
+require'plenary.job':new({
+    command = 'rustup',
+    args = { 'which', 'rust-analyzer' },
+    on_stdout = function(error, data)
+        rust_analyzer_bin = data
+    end,
+}):sync()
+
+if rust_analyzer_bin == nil or rust_analyzer_bin == '' then
+    print("Please install Rust Analyzer with rustup. Assuming rust_analyzer binary is in path.")
+    rust_analyzer_bin = 'rust_analyzer'
 end
 
 local rust_tools_opts = {
@@ -292,10 +310,22 @@ local rust_tools_opts = {
     -- these override the defaults set by rust-tools.nvim
     -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
     server = {
+        cmd = { rust_analyzer_bin },
         on_attach = rust_on_attach,
         capabilities = cmp_lsp_capabilities,
         settings = {
             ["rust-analyzer"] = {
+                imports = {
+                    granularity = {
+                        group = "module",
+                    },
+                    prefix = "self",
+                },
+                cargo = {
+                    buildScripts = {
+                        enable = true,
+                    },
+                },
                 procMacro = {
                     enable = true
                 }
