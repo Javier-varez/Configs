@@ -16,7 +16,7 @@ require('packer').startup(function()
     use 'nvim-telescope/telescope.nvim'
     use 'nvim-telescope/telescope-fzy-native.nvim'
     use 'mbbill/undotree'
-    use 'airblade/vim-gitgutter'
+    use { 'airblade/vim-gitgutter', branch = 'main' }
     use 'rhysd/vim-clang-format'
     use 'tpope/vim-commentary'
     use 'tpope/vim-sensible'
@@ -42,14 +42,22 @@ require('packer').startup(function()
     }
     use 'feline-nvim/feline.nvim'
     use {'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons'}
-
+    use {'nvim-orgmode/orgmode', config = function()
+          require('orgmode').setup{}
+        end
+    }
 end)
 
 require('trim').setup({})
 
+require('orgmode').setup_ts_grammar()
+
 require'nvim-treesitter.configs'.setup {
     highlight = {
         enable = true,
+        -- Required for spellcheck, some LaTex highlights and
+        -- code block highlights that do not have ts grammar
+        additional_vim_regex_highlighting = {'org'},
     },
     indent = {
         enable = true,
@@ -66,7 +74,13 @@ require'nvim-treesitter.configs'.setup {
     playground = {
         enable = true,
     },
+    ensure_installed = {'org'}, -- Or run :TSUpdate org
 }
+
+require('orgmode').setup({
+  org_agenda_files = { '~/Documents/orgs/**/*' },
+  org_default_notes_file = '~/Documents/orgs/notes.org',
+})
 
 -- Default options:
 require('kanagawa').setup({
@@ -121,6 +135,7 @@ cmp.setup({
   }, {
     { name = 'buffer' },
     { name = 'path' },
+    { name = 'orgmode' },
   })
 })
 
