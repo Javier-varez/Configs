@@ -11,8 +11,6 @@ return {
     'tpope/vim-surround',
     'mklabs/vim-cowsay',
     'mhinz/vim-startify',
-    -- Grammar check with LanguageTool
-    'rhysd/vim-grammarous',
     -- Vim status line
     {
         'freddiehaddad/feline.nvim',

@@ -52,7 +52,10 @@ return {
                 gopls = {},
                 clangd = {
                     cmd = { "clangd", "--query-driver=*/**" },
-                }
+                },
+                ltex = {
+                    language = "en-GB",
+                },
             }
 
 
