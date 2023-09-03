@@ -1,5 +1,12 @@
 return {
     {
+        'rust-lang/rust.vim',
+        init = function()
+            -- This plugin is mainly interesting for formatting
+            vim.g.rustfmt_autosave = 1
+        end
+    },
+    {
         'simrat39/rust-tools.nvim',
         init = function()
             -- Rust tools
