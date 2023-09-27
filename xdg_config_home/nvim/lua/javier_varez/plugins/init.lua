@@ -6,7 +6,10 @@ return {
     'mbbill/undotree',
     -- tpope magic
     'tpope/vim-commentary',
-    'tpope/vim-sensible',
+    {
+        'tpope/vim-sensible',
+        init = require('javier_varez.options').init,
+    },
     'tpope/vim-fugitive',
     'tpope/vim-surround',
     'mklabs/vim-cowsay',
