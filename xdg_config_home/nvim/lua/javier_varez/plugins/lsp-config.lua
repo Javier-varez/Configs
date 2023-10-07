@@ -54,7 +54,12 @@ return {
                     cmd = { "clangd", "--query-driver=*/**" },
                 },
                 ltex = {
-                    language = "en-GB",
+                    settings = {
+                        ltex = {
+                            language = "en-US",
+                            languageToolHttpServerUri = "http://localhost:8875/",
+                        },
+                    },
                 },
             }
 
