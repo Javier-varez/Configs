@@ -1,4 +1,3 @@
-
 nvim_create_autogroups = function (definitions)
 	for group_name, definition in pairs(definitions) do
 		vim.api.nvim_command('augroup '..group_name)

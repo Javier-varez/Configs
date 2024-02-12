@@ -13,7 +13,6 @@ return {
     'tpope/vim-fugitive',
     'tpope/vim-surround',
     'mklabs/vim-cowsay',
-    'mhinz/vim-startify',
     -- Git diff markers
     { 'airblade/vim-gitgutter', branch = 'main' },
     -- Vim status line
