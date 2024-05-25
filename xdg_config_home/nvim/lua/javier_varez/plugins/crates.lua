@@ -3,7 +3,6 @@ return {
         'saecki/crates.nvim',
         init = function()
             require("crates").setup {
-                avoid_prerelease = true, -- don't select a prerelease if the requirement does not have a suffix
                 autoload = true, -- automatically run update when opening a Cargo.toml
                 autoupdate = true, -- atomatically update when editing text
                 loading_indicator = true, -- show a loading indicator while fetching crate versions

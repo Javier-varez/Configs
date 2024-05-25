@@ -18,7 +18,8 @@ return {
     -- Vim status line
     {
         'freddiehaddad/feline.nvim',
-        init = function()
+        opts = {},
+        config = function(_, opts)
             -- required by feline
             vim.o.termguicolors = true
             require('feline').setup({})
