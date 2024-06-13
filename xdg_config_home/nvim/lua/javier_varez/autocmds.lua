@@ -1,17 +1,24 @@
-require('javier_varez.utils')
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+    callback = function(_)
+        vim.bo.undofile = true
+        vim.bo.expandtab = true
+        vim.bo.tabstop = 4
+        vim.bo.shiftwidth = 4
+    end
+})
 
-nvim_create_autogroups {
-    JavierAlvarez = {
-        { 'BufRead,BufNewFile', '*', ':set undofile' },
-        { 'BufRead,BufNewFile', '*', ':set expandtab' },
-        { 'BufRead,BufNewFile', '*', ':set tabstop=4' },
-        { 'BufRead,BufNewFile', '*', ':set shiftwidth=4' },
-        { 'BufRead,BufNewFile', '*.cpp,*.c,*.hpp,*.h', ':set expandtab' },
-        { 'BufRead,BufNewFile', '*.cpp,*.c,*.hpp,*.h', ':set tabstop=2' },
-        { 'BufRead,BufNewFile', '*.cpp,*.c,*.hpp,*.h', ':set shiftwidth=2' },
-        { 'BufRead,BufNewFile', '*.go', ':set noexpandtab' },
-        { 'BufRead,BufNewFile', '*.go', ':set tabstop=4' },
-        { 'BufRead,BufNewFile', '*.go', ':set shiftwidth=4' },
-        { 'BufRead,BufNewFile', 'COMMIT_EDITMSG', ':set colorcolumn=50,72' },
-    }
-}
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+    pattern = {"*.go"},
+    callback = function(_)
+        vim.bo.expandtab = false
+        vim.bo.tabstop = 4
+        vim.bo.shiftwidth = 4
+    end
+})
+
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+    pattern = {"COMMIT_EDITMSG"},
+    callback = function(_)
+        vim.wo.colorcolumn = "50,72"
+    end
+})
