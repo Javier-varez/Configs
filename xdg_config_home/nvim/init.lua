@@ -14,11 +14,11 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require('lazy').setup('javier_varez.plugins')
+require('lazy').setup('user_plugins')
 
-require('javier_varez.autocmds')
-require('javier_varez.remaps')
-require('javier_varez.telescope')
+require('user_autocmds')
+require('user_remaps')
+require('user_telescope')
 
 require("noice").setup({
   lsp = {

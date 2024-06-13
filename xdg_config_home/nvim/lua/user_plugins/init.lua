@@ -8,7 +8,7 @@ return {
     'tpope/vim-commentary',
     {
         'tpope/vim-sensible',
-        init = require('javier_varez.options').init,
+        init = require('user_options').init,
     },
     'tpope/vim-fugitive',
     'tpope/vim-surround',
