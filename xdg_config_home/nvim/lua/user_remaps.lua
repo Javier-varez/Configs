@@ -42,7 +42,7 @@ vim.api.nvim_set_keymap('n', '<leader>fd', '<Cmd>lua require"telescope.builtin".
     noremap = true,
     silent=true
 })
-vim.api.nvim_set_keymap('n', '<leader>fv', '<Cmd>lua require("javier_varez.telescope").search_vimrc() <CR>', {
+vim.api.nvim_set_keymap('n', '<leader>fv', '<Cmd>lua require("user_telescope").search_vimrc() <CR>', {
     noremap = true,
     silent=true
 })
